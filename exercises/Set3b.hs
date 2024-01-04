@@ -118,12 +118,16 @@ sorted _ = True
 -- Use pattern matching and recursion (and the list constructors : and [])
 
 sumsOf :: [Int] -> [Int]
-sumsOf [] = []
-sumsOf xs = sum' (0 : xs)
+-- sumsOf [] = []
+-- sumsOf xs = sum' (0 : xs)
+--   where
+--     sum' [x] = [x]
+--     sum' [x, y] = [x + y]
+--     sum' (x : y : xs) = x + y : sum' (x + y : xs)
+sumsOf xs = go 0 xs
   where
-    sum' [x] = [x]
-    sum' [x, y] = [x + y]
-    sum' (x : y : xs) = x + y : sum' (x + y : xs)
+    go n (x : xs) = n + x : go (n + x) xs
+    go _ [] = []
 
 ------------------------------------------------------------------------------
 -- Ex 7: implement the function merge that merges two sorted lists of
